@@ -28,14 +28,6 @@ export class ConfigurationHelper {
         };
     }
 
-    static isEmpty(str?: string): boolean {
-        if (typeof str === "string" && str.trim().length === 0) {
-            return true;
-        }
-        return false;
-    }
-
-
     /**
      * Validates the fields in the config object
      * @param {AuthConfig} authConfig: configuration object
@@ -44,8 +36,7 @@ export class ConfigurationHelper {
     static validateAuthConfig(authConfig: AuthConfig, appType: AppType): void {
         switch (appType) {
             case AppType.WebApp:
-                
-                if (this.isEmpty((<WebAppAuthConfig>authConfig).auth.redirectUri)) {
+                if (!(<WebAppAuthConfig>authConfig).auth.redirectUri) {
                     throw new Error(ConfigurationErrorMessages.NO_REDIRECT_URI);
                 }
                 break;
